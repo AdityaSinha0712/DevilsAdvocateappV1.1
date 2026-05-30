@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Global Dark Mode Foundation ─── */
+:root {
+  --neon-cyan: #00F0FF;
+  --neon-teal: #00D4AA;
+  --dark-base: #000000;
+  --dark-surface: #0A0A0F;
+  --dark-elevated: #111118;
+  --dark-card: #16161F;
+  --dark-border: #1E1E2A;
+  color-scheme: dark;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--dark-base);
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Typography ─── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Scrollbar Styling ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.4);
+}
+
+/* ─── Glassmorphism Utilities ─── */
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+  }
+
+  .glass-card-dense {
+    @apply bg-gray-900/40 backdrop-blur-md border border-white/10 rounded-xl;
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300;
+  }
+
+  .glass-card-hover:hover {
+    @apply bg-white/[0.08] border-cyan-500/20 shadow-neon-sm;
+  }
+
+  /* ─── Neon Glow Button ─── */
+  .neon-button {
+    @apply relative overflow-visible px-6 py-3 bg-cyan-500 text-black font-display font-bold rounded-xl 
+           transition-all duration-300 hover:bg-cyan-400;
+  }
+
+  .neon-button::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    background: var(--neon-cyan);
+    border-radius: inherit;
+    filter: blur(20px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  .neon-button:hover::before {
+    opacity: 0.5;
+  }
+
+  .neon-button:active::before {
+    opacity: 0.7;
+  }
+
+  /* ─── Message Bubbles ─── */
+  .message-user {
+    @apply ml-auto bg-cyan-500/10 border border-cyan-500/20 backdrop-blur-md rounded-2xl rounded-tr-md;
+  }
+
+  .message-opponent {
+    @apply mr-auto bg-fuchsia-500/10 border border-fuchsia-500/20 backdrop-blur-md rounded-2xl rounded-tl-md;
+  }
+
+  .message-ai {
+    @apply mr-auto bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl rounded-tl-md;
+  }
+
+  .message-moderator {
+    @apply mx-auto bg-yellow-500/10 border border-yellow-500/20 backdrop-blur-md rounded-xl;
+  }
+
+  /* ─── Sentiment Tags ─── */
+  .sentiment-tag {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border;
+  }
+
+  /* ─── Intensity Slider Track ─── */
+  .intensity-track {
+    @apply relative h-2 rounded-full bg-dark-elevated overflow-hidden;
+  }
+
+  .intensity-fill {
+    @apply absolute inset-y-0 left-0 rounded-full transition-all duration-500 ease-out;
+  }
+}
+
+/* ─── Selection Styling ─── */
+::selection {
+  background: rgba(0, 240, 255, 0.3);
+  color: white;
+}
+
+/* ─── Focus Ring ─── */
+*:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+}

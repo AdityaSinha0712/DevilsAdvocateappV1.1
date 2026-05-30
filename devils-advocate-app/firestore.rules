@@ -1,0 +1,32 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global analytics are read-only for public, writable only by Admin SDK
+    match /global_analytics/{document=**} {
+      allow read: if true;
+      allow write: if false; // Only backend can write
+    }
+
+    // Users can only read and write their own profile
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Debates
+    match /debates/{debateId} {
+      // Anyone can read a debate if it is public
+      allow read: if resource.data.isPublicDebate == true;
+      // Users can read and write only their own debates
+      allow read, write: if request.auth != null && resource.data.userId == request.auth.uid;
+      // Also allow creation if the user sets their own ID
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+    }
+
+    // Toxicity Logs are completely restricted (Admin SDK only)
+    match /toxicity_logs/{logId} {
+      allow read, write: if false;
+    }
+  }
+}
