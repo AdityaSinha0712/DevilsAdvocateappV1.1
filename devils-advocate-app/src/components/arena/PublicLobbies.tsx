@@ -72,7 +72,7 @@ const PublicLobbies: React.FC<PublicLobbiesProps> = ({ onJoinDebate, onWaitingCh
     try {
       const token = localStorage.getItem('token');
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:4000/api'}/debate/public-lobbies`,
+        `${import.meta.env.VITE_API_URL || '/api'}/debate/public-lobbies`,
         { headers: token ? { Authorization: `Bearer ${token}` } : {} }
       );
       if (res.ok) {

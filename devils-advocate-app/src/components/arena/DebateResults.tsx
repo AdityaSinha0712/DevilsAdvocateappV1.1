@@ -73,8 +73,9 @@ export default function DebateResults({
     }
 
     const isHost = players[user.uid]?.role === 'host';
-    const amIWinner = (results.winner === 'host' && isHost) || (results.winner === 'challenger' && !isHost);
-    const isOpponentWinner = (results.winner === 'host' && !isHost) || (results.winner === 'challenger' && isHost);
+    const winnerStr = results.winner as string;
+    const amIWinner = (winnerStr === 'host' && isHost) || (winnerStr === 'challenger' && !isHost);
+    const isOpponentWinner = (winnerStr === 'host' && !isHost) || (winnerStr === 'challenger' && isHost);
 
     if (amIWinner) {
       return {
@@ -103,7 +104,7 @@ export default function DebateResults({
     ? players[user.uid].scores
     : (results.finalScores || defaultScores);
 
-  const avgScore = Object.values(finalScores).reduce((a: any, b: any) => a + b, 0) / 5;
+  const avgScore = (Object.values(finalScores) as number[]).reduce((a: number, b: number) => a + b, 0) / 5;
   const summary = results.summary || { bestUserArgument: 'N/A', bestAiArgument: 'N/A', conclusion: 'N/A'};
 
   // Swap arguments in Challenger's view so they always see their own best argument on top

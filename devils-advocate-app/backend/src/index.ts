@@ -29,8 +29,8 @@ const PORT = parseInt(process.env.PORT || '4000', 10);
 // ─── Global Middleware ───────────────────────────────────────────
 app.use(cors({
   origin: process.env.FRONTEND_URL
-    ? process.env.FRONTEND_URL
-    : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'],
+    ? [process.env.FRONTEND_URL, 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175']
+    : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'https://devilsadvocateapp.vercel.app'],
   credentials: true,
 }));
 app.use(express.json({ limit: '10kb' }));
@@ -89,11 +89,13 @@ app.use((err: Error, _req: express.Request, res: express.Response, _next: expres
   });
 });
 
-// ─── Start Server ────────────────────────────────────────────────
-app.listen(PORT, () => {
-  logger.info(`🔥 Devil's Advocate Backend listening on port ${PORT}`);
-  logger.info(`📡 CORS origin: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
-  logger.info(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+// ─── Start Server (skip in Vercel serverless) ───────────────────
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    logger.info(`🔥 Devil's Advocate Backend listening on port ${PORT}`);
+    logger.info(`📡 CORS origin: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
+    logger.info(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
 
 export default app;

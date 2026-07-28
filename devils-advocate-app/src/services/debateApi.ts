@@ -12,7 +12,7 @@
 
 import type { PersonaId, IntensityLevel, SentimentLabel, FallacyType } from '../types/debate';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 // ─── Auth Token Management ──────────────────────────────────────
 let authToken: string | null = null;

@@ -1,0 +1,33 @@
+# Environment files & secrets
+.env
+.env.*
+*.env
+*.env.*
+
+# IDE & AI Agent folders
+.agent/
+.claude/
+.codex/
+.gemini/
+.obsidian/
+.opencode/
+.vscode/
+.idea/
+
+# Node & Build artifacts
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+dist-ssr/
+build/
+
+# OS / Misc / Temporary files
+.DS_Store
+Thumbs.db
+*.log
+Untitled/
+Untitled*.base
+read_docx.py
+DEVILS ADVOCATE/
+DEVILS_ADVOCATE/

@@ -52,7 +52,7 @@ const msgId = () => `msg_${Date.now()}_${Math.random().toString(36).substring(2,
 // ─── Backend availability — re-checks each time ─────────────────
 async function checkBackend(): Promise<boolean> {
   try {
-    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+    const baseUrl = import.meta.env.VITE_API_URL || '/api';
     const resp = await fetch(`${baseUrl}/health`, { signal: AbortSignal.timeout(3000) });
     return resp.ok;
   } catch {
